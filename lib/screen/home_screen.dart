@@ -2,8 +2,10 @@ import 'package:chatbot_ai/model/home_type.dart';
 import 'package:chatbot_ai/widget/home_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../apis/apis.dart';
 import '../helper/global.dart';
 import '../helper/pref.dart';
 
@@ -26,6 +28,8 @@ class _HomeScreen extends State{
   Widget build(BuildContext context) {
     // initializing device size
     mq = MediaQuery.sizeOf(context);
+    APIs.getAnswer('hi');
+
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -42,7 +46,8 @@ class _HomeScreen extends State{
           ),
         ),
         actions: [
-          IconButton(padding: EdgeInsets.only(right: 10),
+          IconButton(
+            padding: EdgeInsets.only(right: 10),
             onPressed: () {},
             icon: Icon(
               Icons.brightness_4_rounded,
@@ -56,7 +61,7 @@ class _HomeScreen extends State{
         padding: EdgeInsets.symmetric(
             horizontal: mq.width * .04, vertical: mq.height * .015),
         children: HomeType.values.map((e) => Homecard(homeType: e)).toList(),
-      ),
+      )
 
     );
   }

@@ -1,4 +1,10 @@
+import 'package:chatbot_ai/screen/features/Chatbot_feature.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+
+import '../screen/features/ImageCreator_feature.dart';
+import '../screen/features/LanguageTrans_feature.dart';
+import '../screen/features/QR_feature.dart';
 
 enum HomeType{ChatBot,ImageCreator,LangTrans,QR}
 
@@ -33,6 +39,15 @@ extension MyHomeType on HomeType{
     HomeType.ImageCreator => EdgeInsets.all(10),
     HomeType.LangTrans => EdgeInsets.all(10),
     HomeType.QR => EdgeInsets.all(10),
+  };
+
+  //to create a fn we added  ()=>
+  //before that it was just a navigation
+  VoidCallback get onTap => switch(this){
+    HomeType.ChatBot => () => Get.to(()=> ChatBotFeature()),
+    HomeType.ImageCreator => () => Get.to(()=> ImageCreatorFeature()),
+    HomeType.LangTrans => () => Get.to(()=> LangTransFeature()),
+    HomeType.QR => () => Get.to(()=> QRFeature()),
   };
 
 }

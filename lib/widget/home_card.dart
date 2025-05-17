@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
 
 import '../helper/global.dart';
@@ -13,10 +14,11 @@ class Homecard extends StatelessWidget {
     final HomeType homeType;
     const Homecard({super.key, required this.homeType});
 
-
     // late PageController _pageController;
   @override
   Widget build(BuildContext context) {
+    Animate.restartOnHotReload = true;
+
     mq = MediaQuery.sizeOf(context);
      return Card(
        color: Colors.blue.shade100,
@@ -26,14 +28,19 @@ class Homecard extends StatelessWidget {
          borderRadius: BorderRadius.all(Radius.circular(20))
        ),
 
-     child: homeType.leftAlign ?
-     Padding(
-       padding: homeType.padding,
-       child: Row(
-         children: [
-           Lottie.asset(
+     child: InkWell(
+       borderRadius: BorderRadius.all(Radius.circular(20)),
+       onTap: homeType.onTap,
+       child: homeType.leftAlign ?
+       Padding(
+         padding: homeType.padding,
+         child: Row(
+           children: [
+             Lottie.asset(
                'assets/lottie/${homeType.lottie}',
-               width: mq.width * .35),
+               width: mq.width * .35,
+               height: mq.height * .17,
+             ),
              SizedBox( width: 40,),
 
              Expanded(
@@ -49,36 +56,37 @@ class Homecard extends StatelessWidget {
                  maxLines: 2,
                ),
              ),
-         ],
-       ),
-     ):
-     Padding(
-       padding: homeType.padding,
-       child: Row(
-         children: [
-           Expanded(
-             child: Text(
-               homeType.title,
-               style: GoogleFonts.domine(
-                 textStyle: TextStyle(
-                   fontSize: 20,
-                   fontWeight: FontWeight.bold,
-                   color: Colors.blueGrey.shade900,
+           ],
+         ),
+       ):
+       Padding(
+         padding: homeType.padding,
+         child: Row(
+           children: [
+             Expanded(
+               child: Text(
+                 homeType.title,
+                 style: GoogleFonts.domine(
+                   textStyle: TextStyle(
+                     fontSize: 20,
+                     fontWeight: FontWeight.bold,
+                     color: Colors.blueGrey.shade900,
+                   ),
                  ),
+                 maxLines: 2,
                ),
-               maxLines: 2,
              ),
-           ),
-           SizedBox( width: 40,),
-           Lottie.asset('assets/lottie/${homeType.lottie}',width: mq.width * .35),
+             SizedBox( width: 40,),
+             Lottie.asset('assets/lottie/${homeType.lottie}',
+               width: mq.width * .35,
+               height: mq.height * .17,
+             ),
 
-         ],
+           ],
+         ),
        ),
      )
 
-
-
-
-     );
+     ).animate().fade(duration: 1.seconds,curve: Curves.easeIn);
   }
 }
